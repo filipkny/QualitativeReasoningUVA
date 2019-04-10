@@ -12,7 +12,8 @@ Outflow{0, 0}
 Volume{0, 0}
 Outflow{0, 0}
 "
-	"Inflow{0, +}
+	"1
+Inflow{0, +}
 Volume{0, 0}
 Outflow{0, 0}
 "
@@ -30,9 +31,24 @@ Outflow{0, 0}
 Volume{0, +}
 Outflow{0, +}
 "
+	"2
+Inflow{0, 0}
+Volume{+, -}
+Outflow{+, -}
+"
 	"Inflow{0, 0}
 Volume{+, -}
 Outflow{+, -}
+" -> "Inflow{0, 0}
+Volume{0, 0}
+Outflow{0, 0}
+"
+	"Inflow{0, 0}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{0, +}
+Volume{0, 0}
+Outflow{0, 0}
 "
 	"Inflow{0, 0}
 Volume{+, -}
@@ -41,7 +57,8 @@ Outflow{+, -}
 Volume{+, -}
 Outflow{+, -}
 "
-	"Inflow{0, +}
+	"3
+Inflow{0, +}
 Volume{+, -}
 Outflow{+, -}
 "
@@ -55,11 +72,26 @@ Outflow{+, -}
 	"Inflow{0, +}
 Volume{+, -}
 Outflow{+, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{0, +}
+Volume{+, -}
+Outflow{+, -}
 " -> "Inflow{+, +}
 Volume{+, -}
 Outflow{+, -}
 "
-	"Inflow{0, 0}
+	"Inflow{0, +}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{+, +}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"4
+Inflow{0, 0}
 Volume{max, -}
 Outflow{max, -}
 "
@@ -70,7 +102,8 @@ Outflow{max, -}
 Volume{+, -}
 Outflow{+, -}
 "
-	"Inflow{0, 0}
+	"5
+Inflow{0, 0}
 Volume{max, 0}
 Outflow{max, 0}
 "
@@ -88,7 +121,8 @@ Outflow{max, 0}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{0, +}
+	"6
+Inflow{0, +}
 Volume{max, -}
 Outflow{max, -}
 "
@@ -98,6 +132,13 @@ Outflow{max, -}
 " -> "Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
+"
+	"Inflow{0, +}
+Volume{max, -}
+Outflow{max, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
 "
 	"Inflow{0, +}
 Volume{max, -}
@@ -113,7 +154,8 @@ Outflow{max, -}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{0, +}
+	"7
+Inflow{0, +}
 Volume{max, 0}
 Outflow{max, 0}
 "
@@ -138,7 +180,8 @@ Outflow{max, 0}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{+, -}
+	"8
+Inflow{+, -}
 Volume{0, +}
 Outflow{0, +}
 "
@@ -156,7 +199,8 @@ Outflow{0, +}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, 0}
+	"9
+Inflow{+, 0}
 Volume{0, +}
 Outflow{0, +}
 "
@@ -181,7 +225,8 @@ Outflow{0, +}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, +}
+	"10
+Inflow{+, +}
 Volume{0, +}
 Outflow{0, +}
 "
@@ -198,10 +243,18 @@ Outflow{0, +}
 " -> "Inflow{+, +}
 Volume{+, +}
 Outflow{+, +}
+"
+	"11
+Inflow{+, -}
+Volume{+, -}
+Outflow{+, -}
 "
 	"Inflow{+, -}
 Volume{+, -}
 Outflow{+, -}
+" -> "Inflow{0, 0}
+Volume{0, 0}
+Outflow{0, 0}
 "
 	"Inflow{+, -}
 Volume{+, -}
@@ -213,11 +266,26 @@ Outflow{+, -}
 	"Inflow{+, -}
 Volume{+, -}
 Outflow{+, -}
+" -> "Inflow{+, -}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{+, -}
+Volume{+, -}
+Outflow{+, -}
 " -> "Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
 "
 	"Inflow{+, -}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"12
+Inflow{+, -}
 Volume{+, 0}
 Outflow{+, 0}
 "
@@ -263,7 +331,8 @@ Outflow{+, 0}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, -}
+	"13
+Inflow{+, -}
 Volume{+, +}
 Outflow{+, +}
 "
@@ -288,7 +357,8 @@ Outflow{+, +}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{+, 0}
+	"14
+Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
 "
@@ -302,11 +372,33 @@ Outflow{+, -}
 	"Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
+" -> "Inflow{+, -}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{+, 0}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{+, 0}
+Volume{+, -}
+Outflow{+, -}
 " -> "Inflow{+, +}
 Volume{+, -}
 Outflow{+, -}
 "
 	"Inflow{+, 0}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{+, +}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"15
+Inflow{+, 0}
 Volume{+, 0}
 Outflow{+, 0}
 "
@@ -366,7 +458,8 @@ Outflow{+, 0}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, 0}
+	"16
+Inflow{+, 0}
 Volume{+, +}
 Outflow{+, +}
 "
@@ -391,7 +484,8 @@ Outflow{+, +}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{+, +}
+	"17
+Inflow{+, +}
 Volume{+, -}
 Outflow{+, -}
 "
@@ -403,6 +497,21 @@ Volume{+, -}
 Outflow{+, -}
 "
 	"Inflow{+, +}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{+, +}
+Volume{+, -}
+Outflow{+, -}
+" -> "Inflow{+, +}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"18
+Inflow{+, +}
 Volume{+, 0}
 Outflow{+, 0}
 "
@@ -441,7 +550,8 @@ Outflow{+, 0}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, +}
+	"19
+Inflow{+, +}
 Volume{+, +}
 Outflow{+, +}
 "
@@ -459,7 +569,8 @@ Outflow{+, +}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{+, -}
+	"20
+Inflow{+, -}
 Volume{max, -}
 Outflow{max, -}
 "
@@ -480,11 +591,26 @@ Outflow{+, -}
 	"Inflow{+, -}
 Volume{max, -}
 Outflow{max, -}
+" -> "Inflow{+, -}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{+, -}
+Volume{max, -}
+Outflow{max, -}
 " -> "Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
 "
 	"Inflow{+, -}
+Volume{max, -}
+Outflow{max, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"21
+Inflow{+, -}
 Volume{max, 0}
 Outflow{max, 0}
 "
@@ -523,7 +649,8 @@ Outflow{max, 0}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{+, 0}
+	"22
+Inflow{+, 0}
 Volume{max, -}
 Outflow{max, -}
 "
@@ -537,9 +664,23 @@ Outflow{+, -}
 	"Inflow{+, 0}
 Volume{max, -}
 Outflow{max, -}
+" -> "Inflow{+, -}
+Volume{+, 0}
+Outflow{+, 0}
+"
+	"Inflow{+, 0}
+Volume{max, -}
+Outflow{max, -}
 " -> "Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
+"
+	"Inflow{+, 0}
+Volume{max, -}
+Outflow{max, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
 "
 	"Inflow{+, 0}
 Volume{max, -}
@@ -555,7 +696,8 @@ Outflow{max, -}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, 0}
+	"23
+Inflow{+, 0}
 Volume{max, 0}
 Outflow{max, 0}
 "
@@ -587,7 +729,8 @@ Outflow{max, 0}
 Volume{max, 0}
 Outflow{max, 0}
 "
-	"Inflow{+, +}
+	"24
+Inflow{+, +}
 Volume{max, -}
 Outflow{max, -}
 "
@@ -597,6 +740,13 @@ Outflow{max, -}
 " -> "Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
+"
+	"Inflow{+, +}
+Volume{max, -}
+Outflow{max, -}
+" -> "Inflow{+, 0}
+Volume{+, 0}
+Outflow{+, 0}
 "
 	"Inflow{+, +}
 Volume{max, -}
@@ -612,7 +762,8 @@ Outflow{max, -}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, +}
+	"25
+Inflow{+, +}
 Volume{max, 0}
 Outflow{max, 0}
 "

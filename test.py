@@ -138,10 +138,16 @@ def filter(states):
     states = states[~((states[:, 2] == 1) & (states[:, 0] == 0) & (states[:, 4] != -1))]
     states = states[~((states[:, 2] == 0) & (states[:, 0] == 0) & (states[:, 4] != 0))]
 
+    # If inflow is positive and outflow is 0, both volume and outflow have positive derivative
+    # states = states[~((states[:, 0] == 1) & (states[:, 2] == 0) & ((states[:, 4] != 1) & (states[:,5] != 1)))]
+
+    states = states[~((states[:, 1] == 2) & (states[:, 0] != 0))]
+    states = states[~((states[:, 1] == 2) & (states[:, 3] != 0))]
+
     # ---- ASSUMPTIONS ------
     # If volume is max, then tap cannot be postive (mag or deriv)
-    states = states[~((states[:, 1] == 2) & (states[:, 0] == 1))]
-    states = states[~((states[:, 1] == 2) & (states[:, 3] == 1))]
+    # states = states[~((states[:, 1] == 2) & (states[:, 0] == 1))]
+    # states = states[~((states[:, 1] == 2) & (states[:, 3] == 1))]
 
     return states
 
@@ -195,15 +201,20 @@ def filter_transitions(states_idxs, all_transitions):
         # Check magnitudes
         i = 0
         while i < len(transitions):
+            new_state = transitions[i]
             for j in range(3):
                 derivative = state[j+3]
                 old_mag = state[j]
                 new_mag = transitions[i][j]
+
+                if new_mag == 2 and old_mag == 1 and derivative == 1:
+                    print("here")
+
                 if derivative > 0 and new_mag < old_mag or \
                    derivative < 0 and new_mag > old_mag or \
-                   derivative == 0 and new_mag != old_mag or \
                    derivative > 0 and new_mag == 0 or \
                    derivative < 0 and new_mag == 2 or \
+                   derivative == 0 and new_mag != old_mag or \
                    abs(old_mag - new_mag) == 2:
                     transitions = np.delete(transitions, (i), axis=0)
                     i -= 1
@@ -214,33 +225,39 @@ def filter_transitions(states_idxs, all_transitions):
         # Derivative filtering
         i = 0
         while i < len(transitions):
+            breaking = False
+            new_state = transitions[i]
+
             for j in range(3):
                 old_derivative = state[j + 3]
                 new_derivative = transitions[i][j + 3]
                 accumlator = accumulate_effects(state, j)
-                if 1 in accumlator and -1 not in accumlator and old_derivative > new_derivative or \
-                   -1 in accumlator and 1 not in accumlator and new_derivative > old_derivative or \
-                    abs(old_derivative - new_derivative) == 2:
+                if abs(new_derivative - old_derivative) == 2:
+                    # 1 in accumlator and -1 not in accumlator and old_derivative > new_derivative:
+                    # -1 in accumlator and 1 not in accumlator and new_derivative > old_derivative:
+                    # (j != 0) and len(accumlator) == 0 and old_derivative != new_derivative:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
+                    breaking = True
+                    break
 
-                    # len(accumlator) == 0 and old_derivative != new_derivative:
 
+            # # # Misc checks
+            if not breaking:
+                # If volume is max there can be no inflow
+                if state[1] == 2 and transitions[i][3] == 1:
                     transitions = np.delete(transitions, (i), axis=0)
                     i -= 1
                     break
 
-            # Misc checks
+                # If inflow has positive magnitude then outflow derivative must be positive
+                if (state[0] == 1 and state[2] == 0) and transitions[i][4] != 1:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
 
-            # If volume is max there can be no inflow
-            if state[1] == 2 and transitions[i][3] == 1:
-                transitions = np.delete(transitions, (i), axis=0)
-                i -= 1
-                break
-
-            # If inflow has positive magnitude then outflow derivative must be positive
-            if (state[0] == 1 and state[2] == 0) and transitions[i][4] != 1:
-                transitions = np.delete(transitions, (i), axis=0)
-                i -= 1
-                break
+                if (state[1] == 1 and state[1 + 3] == 1) and transitions[i][1] != 2:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
 
             i += 1
 
@@ -254,8 +271,14 @@ def print_connections(states_idxs, transitions):
     for state, transfs in transitions.items():
         print("{} ---> {}".format(states_idxs[state],transfs))
 
-def array2print(state, bonus=False):
-    result = ""
+def array2print(state,id = -1, bonus=False):
+    # if id >= 0:
+    #     result = str(id)  + "\n"
+    # else:
+    #     result = ""
+    result = str(id) + "\n"
+    # if id >= 0:
+    #     result = "{} \n".format(id)
     offset = None
     for i in range(int(len(state)/2)):
         if bonus:
@@ -264,18 +287,29 @@ def array2print(state, bonus=False):
         else:
             offset = 3
             Q = quantities[i]
+
         result += Q + "{" + num2sign_mag[int(state[i])] + ", " + num2sign_deriv[int(state[i+offset])] + "}\n"
+
     return result
+def find_state_id(state_idxs, state):
+    for key, state_repr in state_idxs.items():
+        if np.array_equal(state,state_repr ):
+            return key
+
+    return None
 
 def create_representation_graph(states, edges, file_path, states_idxs, bonus=False):
 
     graph = Digraph(comment='The Qualitative Model')
     graph.node_attr.update(color='lightblue2', style='filled')
 
-    for state, transfs in edges.items():
-        graph.node(array2print(states_idxs[state],bonus=bonus))
+    for s, transfs in edges.items():
+        str_rep1 = array2print(states_idxs[s],id = s,bonus=bonus)
+        graph.node(str_rep1)
         for transf in transfs:
-            graph.edge(array2print(states_idxs[state],bonus=bonus),array2print(transf, bonus=bonus))
+            s_id = find_state_id(states_idxs,transf)
+            str_rep2 = array2print(transf,id = s_id,bonus=bonus)
+            graph.edge(str_rep1,str_rep2)
 
     graph.render(file_path, view=True)
 
@@ -298,14 +332,117 @@ def create_representation_graph(states, edges, file_path, states_idxs, bonus=Fal
 # Filter impossible states
 states = generate_all_states(magnitudes, derivatives)
 states = filter(states)
+for i,state in enumerate(states):
+    print(i,state)
+
+git_matching = [1, 2, 13, 16, 19, None,None, None, 7, 9, 11, 14 , 17, 20, 3, 12, 15, 18, 4, None, None, None, None, None ]
+
+# missing = [
+#         [0, 0, 0, 0, 0, 0],
+#         [0, 0, 0, 1, 0, 0],
+#         [ 0,  1,  1,  0, -1, -1],
+#         [ 0,  1,  1,  1, -1, -1],
+#         [ 0,  2,  2,  0, -1, -1],
+#         [ 0, 2, 2, 0, 0, 0],
+#         [ 1,  0,  0, -1,  0,  0],
+#         [ 1,  0,  0, -1,  1,  1],
+#         [1, 0, 0, 0, 0, 0],
+#         [1, 0, 0, 0, 1, 1],
+#         [1, 0, 0, 1, 0, 0],
+#         [1, 0, 0, 1, 1, 1],
+#         [ 1,  1,  1, -1, -1, -1],
+#         [ 1,  1,  1, -1,  0,  0],
+#         [ 1,  1,  1, -1,  1,  1],
+#         [ 1,  1,  1,  0, -1, -1],
+#         [1, 1, 1, 0, 0, 0],
+#         [1, 1, 1, 0, 1, 1],
+#         [ 1,  1,  1,  1, -1, -1],
+#         [1, 1, 1, 1, 0, 0],
+#         [1, 1, 1, 1, 1, 1],
+#         [1, 2, 2, -1, 0, 0],
+#         [1, 2, 2, 0, 0, 0],
+#         [1, 2, 2, 1, 0, 0],
+#         [0, 2, 2, 1, -1, -1],
+#         [1, 2 ,2, -1, -1, -1],
+#         [1, 2, 2, 0, -1, -1],
+#         [1, 2, 2, 1, -1, -1]
+# ]
 states_idxs, transitions = create_transitions(states)
 num_transitions = print_num_transitions(transitions)
 transitions = filter_transitions(states_idxs, transitions)
-num_transitions = print_num_transitions(transitions)
-print_connections(states_idxs,transitions)
-create_representation_graph(states,transitions, 'test',states,bonus=False)
+create_representation_graph(states,transitions, 'testing',states_idxs,bonus=False)
 print(len(states))
+print_connections(states_idxs,transitions)
+num_transitions = print_num_transitions(transitions)
 
 # Create and count transitions
 
+def compare_states(state1, state2):
+    comparison = ""
+    for i in [0, 1, 2]:
+        quantity = quantities[i]
+        influence = influences.get(i,[])
+        props = proportions.get(i,[])
 
+        pos_influence = [inf[0] for inf in influence if inf[1] == 1]
+        neg_influence = [inf[0] for inf in influence if inf[1] == -1]
+        pos_prop = [p[0] for p in props if p[1] == 1]
+        neg_prop = [p[0] for p in props if p[1] == -1]
+        comparison += quantity + ":"
+        mag1 = state1[i]
+        mag2 = state2[i]
+        der1 = state1[i+3]
+        der2 = state2[i+3]
+        comparison += " magnitude"
+        if mag2 > mag1:
+            comparison += " increased"
+        elif mag1 > mag2:
+            comparison += " decreased"
+        else:
+            comparison += " remained the same"
+
+        comparison += " and the derivative"
+
+        deriv_change = 0
+        if der2 > der1:
+            comparison += " increased"
+            deriv_change = 1
+        elif der1 > der2:
+            comparison += " decreased"
+            deriv_change = -1
+        else:
+            comparison += " remained the same"
+
+        if der1 != der2:
+            if i == 0:
+                comparison += " due to exogenous reasons"
+            if i == 1:
+                comparison += " due to"
+                if state1[0] > 0:
+                    comparison += " inflow"
+                if state[2] > 0:
+                    comparison += " outflow"
+            if i == 2:
+                comparison += " due to volume proportionality"
+        # comparison += str(prop) + "proportions"
+
+
+        # comparison += str(influences.get(i,"")) + str(proportions.get(i,""))
+
+        comparison += "\n"
+
+    return comparison
+def trace(init, end, state_idxs, transitions):
+    trace_path = []
+    init_id = find_state_id(states_idxs, init)
+    end_id = find_state_id(end, init)
+
+
+
+    return trace_path
+
+print(compare_states(
+    [0,2,2,0,1,1],
+    [1,2,2,0,0,0]
+)
+)

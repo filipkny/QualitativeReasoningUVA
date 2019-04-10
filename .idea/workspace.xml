@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41f81e3d-a752-4679-bde2-df0c1c0da878" name="Default Changelist" comment="" />
+    <list default="true" id="41f81e3d-a752-4679-bde2-df0c1c0da878" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/test.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="QR_assignment" />
@@ -28,11 +48,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="222" column="55" selection-start-line="222" selection-start-column="41" selection-end-line="222" selection-end-column="55" />
+            <state relative-caret-position="-760">
+              <caret line="130" lean-forward="true" selection-start-line="130" selection-end-line="130" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#1255#3711#0" />
+                <marker date="1554913311667" expanded="true" signature="12131:13056" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/half_accumulator">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -58,12 +89,17 @@
       <find>self.state</find>
       <find>S_sm</find>
       <find>2</find>
+      <find>.</find>
     </findStrings>
     <replaceStrings>
       <replace>relation</replace>
       <replace>current_state</replace>
       <replace>magnitude</replace>
+      <replace>.,</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -75,31 +111,20 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="927" />
-    <option name="height" value="1055" />
+    <option name="x" value="960" />
+    <option name="y" value="-2" />
+    <option name="width" value="960" />
+    <option name="height" value="1082" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="QR_assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QR_assignment" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -245,12 +270,16 @@
       <workItem from="1554622519360" duration="4258000" />
       <workItem from="1554657295688" duration="3419000" />
       <workItem from="1554707236742" duration="5901000" />
-      <workItem from="1554726191708" duration="1516000" />
+      <workItem from="1554726191708" duration="16081000" />
+      <workItem from="1554749533349" duration="20000" />
+      <workItem from="1554832495851" duration="7252000" />
+      <workItem from="1554843346831" duration="25000" />
+      <workItem from="1554907605424" duration="7050000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75869000" />
+    <option name="totallyTimeSpent" value="104781000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -262,72 +291,37 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="927" height="1055" extended-state="4" />
+    <frame x="960" y="-2" width="960" height="1082" extended-state="4" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49660632" visible="true" weight="0.20998865" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49563953" weight="0.2114001" />
       <window_info id="Structure" order="1" sideWeight="0.504886" side_tool="true" weight="0.3121453" />
-      <window_info active="true" id="Favorites" order="2" sideWeight="0.50339365" side_tool="true" visible="true" weight="0.20998865" />
+      <window_info id="Favorites" order="2" sideWeight="0.50436044" side_tool="true" weight="0.10215664" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.15754923" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.032822758" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49943247" visible="true" weight="0.30457935" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34320176" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32932165" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32837406" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.23591924" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50056756" side_tool="true" weight="0.22478071" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32785088" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.28399122" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.63530713" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.7979569" />
+      <window_info active="true" anchor="right" id="Database" order="4" visible="true" weight="0.32932165" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>298</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>299</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>300</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>301</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>302</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>303</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/QR_assignment$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1554726342528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/QR_assignment$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1554913311705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/QR_assignment$py3.coverage" NAME="py3 Coverage Results" MODIFIED="1554028545834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/QR_assignment$Bathtub.coverage" NAME="Bathtub Coverage Results" MODIFIED="1554149472073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/QR_assignment$test.coverage" NAME="test Coverage Results" MODIFIED="1554324067710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -335,42 +329,27 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>i+offset</expression-string>
+        <expression-string>derivative &gt; 0 and new_mag &lt; old_mag or \
+                   derivative &lt; 0 and new_mag &gt; old_mag or \
+                   derivative &gt; 0 and new_mag == 0 or \
+                   derivative &lt; 0 and new_mag == 2 or \
+                   derivative == 0 and new_mag != old_mag or \
+                   abs(old_mag - new_mag) == 2</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>int(state[i+offset])</expression-string>
+        <expression-string>transitions[1]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>num2sign_deriv[int(state[i+offset])]</expression-string>
+        <expression-string>str(transitions[i]) == &quot;[0. 0. 0. 1. 0. 0.]&quot;</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>num2sign_mag[int(state[i])] + &quot;, &quot; + num2sign_deriv[int(state[i+offset])]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>Q + &quot;{&quot; + num2sign_mag[int(state[i])] + &quot;, &quot; + num2sign_deriv[int(state[i+offset])] + &quot;}\n&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>Q + &quot;{&quot; + num2sign_mag[int(state[i])] + &quot;, &quot; + num2sign_deriv[int(state[i+3])] + &quot;}\n&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>len(state)/2</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>abs(old_derivative - new_derivative) == 2</expression-string>
+        <expression-string>str(transitions[i])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -380,9 +359,41 @@
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>len(transitions)</expression-string>
+        <expression-string>str(state) == &quot;[0. 0. 0. 0. 0. 0.]&quot;</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>state == &quot;[0. 0. 0. 0. 0. 0.]&quot;</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>state</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>state = &quot;[0. 0. 0. 0. 0. 0.]&quot;</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>state == [0. 0. 0. 0. 0. 0.]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>state_repr</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>state</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
@@ -410,15 +421,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/half_accumulator">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="222" column="55" selection-start-line="222" selection-start-column="41" selection-end-line="222" selection-end-column="55" />
+        <state relative-caret-position="-760">
+          <caret line="130" lean-forward="true" selection-start-line="130" selection-end-line="130" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#1255#3711#0" />
+            <marker date="1554913311667" expanded="true" signature="12131:13056" ph="..." />
           </folding>
         </state>
       </provider>

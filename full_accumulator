@@ -267,27 +267,6 @@ Outflow{+, +}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, -}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{0, 0}
-Volume{max, 0}
-Outflow{max, 0}
-"
-	"Inflow{+, -}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, -}
-Volume{max, 0}
-Outflow{max, 0}
-"
-	"Inflow{+, -}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, 0}
-Volume{max, 0}
-Outflow{max, 0}
-"
 	"Inflow{+, 0}
 Volume{+, -}
 Outflow{+, -}
@@ -370,27 +349,6 @@ Outflow{+, +}
 Volume{+, +}
 Outflow{+, +}
 "
-	"Inflow{+, 0}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, -}
-Volume{max, 0}
-Outflow{max, 0}
-"
-	"Inflow{+, 0}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, 0}
-Volume{max, 0}
-Outflow{max, 0}
-"
-	"Inflow{+, 0}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, +}
-Volume{max, 0}
-Outflow{max, 0}
-"
 	"Inflow{+, +}
 Volume{+, -}
 Outflow{+, -}
@@ -444,20 +402,6 @@ Outflow{+, +}
 	"Inflow{+, +}
 Volume{+, +}
 Outflow{+, +}
-"
-	"Inflow{+, +}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, 0}
-Volume{max, 0}
-Outflow{max, 0}
-"
-	"Inflow{+, +}
-Volume{+, +}
-Outflow{+, +}
-" -> "Inflow{+, +}
-Volume{max, 0}
-Outflow{max, 0}
 "
 	"Inflow{+, -}
 Volume{max, -}
