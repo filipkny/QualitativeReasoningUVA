@@ -1,4 +1,6 @@
 import itertools
+from collections import defaultdict
+
 import numpy as np
 from graphviz import Digraph
 
@@ -139,10 +141,10 @@ def filter(states):
     states = states[~((states[:, 2] == 0) & (states[:, 0] == 0) & (states[:, 4] != 0))]
 
     # If inflow is positive and outflow is 0, both volume and outflow have positive derivative
-    # states = states[~((states[:, 0] == 1) & (states[:, 2] == 0) & ((states[:, 4] != 1) & (states[:,5] != 1)))]
+    states = states[~((states[:, 0] == 1) & (states[:, 2] == 0) & ((states[:, 4] != 1) & (states[:,5] != 1)))]
 
-    states = states[~((states[:, 1] == 2) & (states[:, 0] != 0))]
-    states = states[~((states[:, 1] == 2) & (states[:, 3] != 0))]
+    states = states[~((states[:, 1] == 2) & (states[:, 0] != 0) & (states[:, 3] != 0))]
+    # states = states[~((states[:, 1] == 2) & (states[:, 3] != 0))]
 
     # ---- ASSUMPTIONS ------
     # If volume is max, then tap cannot be postive (mag or deriv)
@@ -207,9 +209,6 @@ def filter_transitions(states_idxs, all_transitions):
                 old_mag = state[j]
                 new_mag = transitions[i][j]
 
-                if new_mag == 2 and old_mag == 1 and derivative == 1:
-                    print("here")
-
                 if derivative > 0 and new_mag < old_mag or \
                    derivative < 0 and new_mag > old_mag or \
                    derivative > 0 and new_mag == 0 or \
@@ -233,9 +232,6 @@ def filter_transitions(states_idxs, all_transitions):
                 new_derivative = transitions[i][j + 3]
                 accumlator = accumulate_effects(state, j)
                 if abs(new_derivative - old_derivative) == 2:
-                    # 1 in accumlator and -1 not in accumlator and old_derivative > new_derivative:
-                    # -1 in accumlator and 1 not in accumlator and new_derivative > old_derivative:
-                    # (j != 0) and len(accumlator) == 0 and old_derivative != new_derivative:
                     transitions = np.delete(transitions, (i), axis=0)
                     i -= 1
                     breaking = True
@@ -272,13 +268,7 @@ def print_connections(states_idxs, transitions):
         print("{} ---> {}".format(states_idxs[state],transfs))
 
 def array2print(state,id = -1, bonus=False):
-    # if id >= 0:
-    #     result = str(id)  + "\n"
-    # else:
-    #     result = ""
     result = str(id) + "\n"
-    # if id >= 0:
-    #     result = "{} \n".format(id)
     offset = None
     for i in range(int(len(state)/2)):
         if bonus:
@@ -313,67 +303,6 @@ def create_representation_graph(states, edges, file_path, states_idxs, bonus=Fal
 
     graph.render(file_path, view=True)
 
-
-# Get all possible combinations of states and derivatives
-# states_bonus = generate_all_states(magnitudes_bonus, derivatives_bonus)
-# states_bonus = filter_bonus(states_bonus)
-# states_idxs_bonus, transitions_bonus = create_transitions(states_bonus)
-# num_transitions_bonus = print_num_transitions(transitions_bonus)
-# print("# states",len(states_bonus))
-# transitions_bonus = filter_transitions(states_idxs_bonus, transitions_bonus)
-# print_connections(states_idxs_bonus, transitions_bonus)
-# print(len(transitions_bonus[1]))
-# print(len(states_bonus))
-# num_transitions = print_num_transitions(transitions_bonus)
-# create_representation_graph(states_bonus,transitions_bonus, 'test', states_idxs_bonus,bonus=True)
-# print(len(states_bonus))
-
-
-# Filter impossible states
-states = generate_all_states(magnitudes, derivatives)
-states = filter(states)
-for i,state in enumerate(states):
-    print(i,state)
-
-git_matching = [1, 2, 13, 16, 19, None,None, None, 7, 9, 11, 14 , 17, 20, 3, 12, 15, 18, 4, None, None, None, None, None ]
-
-# missing = [
-#         [0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 1, 0, 0],
-#         [ 0,  1,  1,  0, -1, -1],
-#         [ 0,  1,  1,  1, -1, -1],
-#         [ 0,  2,  2,  0, -1, -1],
-#         [ 0, 2, 2, 0, 0, 0],
-#         [ 1,  0,  0, -1,  0,  0],
-#         [ 1,  0,  0, -1,  1,  1],
-#         [1, 0, 0, 0, 0, 0],
-#         [1, 0, 0, 0, 1, 1],
-#         [1, 0, 0, 1, 0, 0],
-#         [1, 0, 0, 1, 1, 1],
-#         [ 1,  1,  1, -1, -1, -1],
-#         [ 1,  1,  1, -1,  0,  0],
-#         [ 1,  1,  1, -1,  1,  1],
-#         [ 1,  1,  1,  0, -1, -1],
-#         [1, 1, 1, 0, 0, 0],
-#         [1, 1, 1, 0, 1, 1],
-#         [ 1,  1,  1,  1, -1, -1],
-#         [1, 1, 1, 1, 0, 0],
-#         [1, 1, 1, 1, 1, 1],
-#         [1, 2, 2, -1, 0, 0],
-#         [1, 2, 2, 0, 0, 0],
-#         [1, 2, 2, 1, 0, 0],
-#         [0, 2, 2, 1, -1, -1],
-#         [1, 2 ,2, -1, -1, -1],
-#         [1, 2, 2, 0, -1, -1],
-#         [1, 2, 2, 1, -1, -1]
-# ]
-states_idxs, transitions = create_transitions(states)
-num_transitions = print_num_transitions(transitions)
-transitions = filter_transitions(states_idxs, transitions)
-create_representation_graph(states,transitions, 'testing',states_idxs,bonus=False)
-print(len(states))
-print_connections(states_idxs,transitions)
-num_transitions = print_num_transitions(transitions)
 
 # Create and count transitions
 
@@ -419,11 +348,11 @@ def compare_states(state1, state2):
             if i == 1:
                 comparison += " due to"
                 if state1[0] > 0:
-                    comparison += " inflow"
-                if state[2] > 0:
-                    comparison += " outflow"
+                    comparison += " inflow positive influence"
+                if state1[2] < 0:
+                    comparison += " outflow negative influenc"
             if i == 2:
-                comparison += " due to volume proportionality"
+                comparison += " due to volume positive proportionality"
         # comparison += str(prop) + "proportions"
 
 
@@ -432,17 +361,78 @@ def compare_states(state1, state2):
         comparison += "\n"
 
     return comparison
+
+def read_state(state):
+    str = ""
+    for i in range(3):
+        quantitiy = quantities[i]
+        str += quantitiy + ": "
+        mag = state[i]
+        deriv = state[i+3]
+        str += "has {} magnitude ".format(num2sign_mag[mag])
+        str += "and {} derivative ".format(num2sign_deriv[deriv])
+        str += "\n"
+
+    return str
+
+def build_trace_dict(transitions):
+    trace_dict = defaultdict(list)
+    node_ids = defaultdict(list)
+    for node_id, tranfs in transitions.items():
+        for transf in tranfs:
+            trace_dict[node_id].append(compare_states(states_idxs[node_id],transf))
+            node_ids[node_id].append(find_state_id(states_idxs, transf))
+
+    return trace_dict, node_ids
+
 def trace(init, end, state_idxs, transitions):
     trace_path = []
     init_id = find_state_id(states_idxs, init)
     end_id = find_state_id(end, init)
 
-
-
     return trace_path
 
-print(compare_states(
-    [0,2,2,0,1,1],
-    [1,2,2,0,0,0]
-)
-)
+def find_shortest_path(graph, start, end, path=[]):
+    path = path + [start]
+    if start == end:
+        return path
+    if not start in graph.keys():
+        return None
+    shortest = None
+    for node in graph[start]:
+        if node not in path:
+            newpath = find_shortest_path(graph, node, end, path)
+            if newpath:
+                if not shortest or len(newpath) < len(shortest):
+                    shortest = newpath
+    return shortest
+
+# Generate and filter impossible states
+states = generate_all_states(magnitudes, derivatives)
+states = filter(states)
+
+# Generate and filter transitions
+states_idxs, transitions = create_transitions(states)
+transitions = filter_transitions(states_idxs, transitions)
+
+
+# Build graph
+create_representation_graph(states,transitions, 'testing',states_idxs,bonus=False)
+
+# Trace
+# Generate ID only graph structure
+traces, transfer_ids = build_trace_dict(transitions)
+example_path = find_shortest_path(transfer_ids,0,20)
+
+def trace(path):
+    print("Path {}".format(path))
+
+    print("Node {}".format(path[0]))
+    print(read_state(states_idxs[path[0]]))
+    for i in range(1, len(path)):
+        print("-- Transition {} -> {} --".format(path[i-1],path[i]))
+        print(compare_states(states_idxs[path[i-1]],states_idxs[path[i]]))
+        print("Node: {}".format(path[i]))
+        print(read_state(states_idxs[path[i]]))
+
+trace(example_path)
