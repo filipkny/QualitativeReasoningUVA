@@ -1,305 +1,418 @@
-import copy
+import itertools
 from collections import defaultdict
 
-opposite = {
-    "+" : "-",
-    "-" : "+",
-    "0" : "0"
+import numpy as np
+from graphviz import Digraph
+
+
+
+num2sign_mag = {
+    0: "0",
+    1: "+",
+    2: "max"
 }
-
-class Quantity():
-    def __init__(self, name, magnitude_space=('0', '+', 'max'), derivative_space=('-', '0', '+'), magnitude='0', derivative='0',influences=[], proportionalities=[]):
-        self.magnitude = magnitude
-        self.derivative = derivative
-        self.magnitude_space = magnitude_space
-        self.derivative_space = derivative_space
-        self.name = name
-        self.influences = influences
-        self.proportionalities = proportionalities
-
-    def __str__(self):
-        return self.name + "{" + self.magnitude + "," + self.derivative + "}"
-
-    def change_magnitude_by(self, offset):
-        old_mag = self.magnitude
-        new_magnitude_index = self.magnitude_space.index(self.magnitude) + offset
-        if 0 <= new_magnitude_index < len(self.magnitude_space):
-            new_mag = self.magnitude_space[new_magnitude_index]
-            self.magnitude = new_mag
-
-            if old_mag != new_mag:
-                return True
-
-        return False
-
-    def change_derivative_by(self, offset):
-        old_deriv = self.derivative
-        new_derivative_index = self.derivative_space.index(self.derivative) + offset
-        if 0 <= new_derivative_index < len(self.derivative_space):
-            new_derivative = self.derivative_space[new_derivative_index]
-
-            self.derivative = new_derivative
-
-            if old_deriv != new_derivative:
-                return True
-
-        return False
-
-    def update_magnitude(self):
-        if self.derivative == "+":
-            self.change_magnitude_by(1)
-        elif self.derivative == "0":
-            self.change_magnitude_by(0)
-        elif self.derivative == "-":
-            self.change_magnitude_by(-1)
-        else:
-            raise ArithmeticError
-
-
-class State():
-    def __init__(self, quantities):
-        self.quantities = quantities
-
-    def __str__(self):
-        string = ""
-        for quantity in self.quantities.values():
-            string += str(quantity) + ", "
-
-        return string
-
-    def __hash__(self):
-        return hash(str(self))
-
-    def __eq__(self, other):
-        if not isinstance(other, type(self)): return NotImplemented
-        return str(self) == str(other)
-
-    def update_magnitudes(self):
-        for quantity in self.quantities.values():
-            quantity.update_magnitude()
-
-
-class StateGraph1(object):
-    def __init__(self, initial_state, influences, proportionalities):
-        self.state = initial_state
-        self.influences = influences
-        self.proportionalities = proportionalities
-        self.past_states = {
-            0: str(initial_state)
-        }
-        self.graph = {
-            0: None
-        }
-
-    def print_current_state(self):
-        print(self.state)
-
-    def check_influences(self, accumulator, current_state):
-        for influencer, influence in influences.items():
-            for influenced, eff in influence.items():
-                if current_state.quantities[influencer].magnitude == "+":
-                    effect = eff
-                elif current_state.quantities[influencer].magnitude == "-":
-                    if eff == "+":
-                        effect = "-"
-                    elif eff == "-":
-                        effect = "+"
-                else:
-                    continue
-
-                accumulator[influenced].append(effect)
-
-    def check_proportionalities(self, accumulator, current_state):
-        for proportionaler, proportion in proportionalities.items():
-            for proportionaled, eff in proportion.items():
-                if current_state.quantities[proportionaler].derivative == "+":
-                    effect = eff
-                elif current_state.quantities[proportionaler].derivative == "-":
-                    if eff == "+":
-                        effect = "-"
-                    elif eff == "-":
-                        effect = "+"
-                else:
-                    continue
-                accumulator[proportionaled].append(effect)
-
-    def accumulate_influences(self, current_state):
-        accumulator = defaultdict(list)
-        self.check_influences(accumulator, current_state)
-        self.check_proportionalities(accumulator, current_state)
-
-        return accumulator
-
-    def update_derivatives(self, accumulator, temp_state):
-        new_states = []
-        split = False
-        for quantity, effects in accumulator.items():
-            new_state_plus = copy.deepcopy(temp_state)
-            new_state_plus.quantities[quantity].change_derivative_by(+1)
-            new_state_minus = copy.deepcopy(temp_state)
-            new_state_minus.quantities[quantity].change_derivative_by(-1)
-
-            if "+" in set(effects) and "-" not in set(effects):
-                new_states.append(new_state_plus)
-            elif "-" in set(effects) and "+" not in set(effects):
-                new_states.append(new_state_minus)
-            elif "-" in set(effects) and "+" in set(effects):
-                new_states.append(new_state_plus)
-                new_states.append(new_state_minus)
-                new_states.append(copy.deepcopy(self.state))
-                split = True
-
-        return new_states, split
-
-    def filter_redundant_states(self, states):
-        result = []
-        str_states = list(map(lambda x: str(x), states))
-        for state in states:
-            if str_states.count(str(state)) == 1:
-                result.append(state)
-
-        return result
-
-
-    def compare_state_groups(self, group1, group2):
-        return str([str(ele) for ele in group1]) == str([str(ele) for ele in group2])
-
-    def get_new_states(self):
-        new_states = [None]
-        old_states = []
-        temp_state = copy.deepcopy(self.state)
-        seen_states = set()
-        while not self.compare_state_groups(new_states, old_states):
-            accumulator = self.accumulate_influences(temp_state)
-            old_states = new_states
-            new_states, split = self.update_derivatives(accumulator, temp_state)
-            if not split:
-                for state in new_states:
-                    if state not in seen_states:
-                        temp_state = state
-
-                for state in new_states:
-                    seen_states.add(state)
-            else:
-                print(len(new_states))
-                print(split)
-                continue
-
-        return set(new_states)
-
-    def transition(self):
-        self.state.update_magnitudes()
-        new_states = self.get_new_states()
-        print(new_states)
-        self.state = list(new_states)[0]
-
-class StateGraph2(object):
-    def __init__(self, initial_state):
-        self.state = initial_state
-        self.past_states = {
-            0: str(initial_state)
-        }
-        self.graph = {
-            0: None
-        }
-
-    def print_current_state(self):
-        print(self.state)
-
-    def accumulate(self, current_state):
-        accumulator = defaultdict(list)
-        for quantity_name, quantity in current_state.quantities.items():
-            for influence in quantity.influences:
-                influenced = influence[0]
-                if quantity.magnitude == "+" or \
-                   quantity.magnitude == "max":
-                    accumulator[influenced].append(influence[1])
-
-            for proportionality in quantity.proportionalities:
-                proportionaled = proportionality[0]
-                if quantity.derivative == "+":
-                    accumulator[proportionaled].append(proportionality[1])
-                elif quantity.derivative == "-":
-                    accumulator[proportionaled].append(opposite[proportionality[1]])
-
-        return accumulator
-
-    def update_derivatives(self, accumulator):
-        new_state = copy.deepcopy(self.state)
-        changed = False
-        for quantity, effects in accumulator.items():
-            all_effects = set(effects)
-            if "+" in all_effects and "-" not in all_effects:
-                changed = new_state.quantities[quantity].change_derivative_by(+1)
-            elif "-" in all_effects and "+" not in all_effects:
-                changed = new_state.quantities[quantity].change_derivative_by(-1)
-            elif "-" in all_effects and "+" in all_effects:
-                continue
-            else:
-                raise RuntimeError
-
-
-        return new_state, changed
-
-    def update_all_derivatives(self):
-        new_state = None
-        old_state = copy.deepcopy(self.state)
-        while old_state != new_state:
-            old_state = copy.deepcopy(self.state)
-            accumulated = self.accumulate(self.state)
-            new_state, changed = self.update_derivatives(accumulated)
-            self.state = new_state
-
-    def transition(self):
-        self.state.update_magnitudes()
-        self.update_all_derivatives()
-
-        #
-        # accumulated = self.accumulate(self.state)
-        # print(accumulated)
-        # new_states, changed = self.update_derivatives(accumulated)
-        # print(changed)
-        # for state in new_states:
-        #     print(state)
-
-inflow = Quantity("inflow", magnitude_space=('0', '+'),influences = [('volume','+')])
-outflow = Quantity("outflow",influences=[('volume','-')])
-volume = Quantity("volume",proportionalities=[('outflow','+'),('height','+')])
-height = Quantity("height",proportionalities=[('pressure','+')])
-pressure = Quantity("pressure")
-
+num2sign_deriv = {
+    -1: "-",
+    0: "0",
+    1: "+"
+}
 quantities = {
-    "inflow": inflow,
-    "volume": volume,
-    "outflow": outflow,
-    "height" : height,
-    "pressure" : pressure
+    0: "Inflow",
+    1: "Volume",
+    2: "Outflow"
 }
+
+quantities_bonus = {
+    0: "Inflow",
+    1: "Volume",
+    2: "Height",
+    3: "Pressure",
+    4: "Outflow"
+}
+# Number of variables
+variables_bonus = 5
+variables = 3
+
+# 0, plus, max domain for all the variables
+magnitudes_bonus= [[0.0, 1.0, 2.0],]*variables_bonus
+magnitudes = [[0.0, 1.0, 2.0],]*variables
+
+derivatives_bonus = [[-1, 0, 1],
+          [ -1, 0, 1],
+          [ -1, 0, 1],
+          [ -1, 0, 1],
+          [ -1, 0, 1]]
+
+derivatives = [[-1, 0, 1],
+                [ -1, 0, 1],
+                [ -1, 0, 1]]
+
 influences = {
-    'inflow': {
-        'volume': '+'
-    },
-    'outflow': {
-        'volume': '-'
-    }
+    1: [(0,1),(2,-1)] # volume <-- I+ -- Inflow,Outflow
 }
-proportionalities = {
-    'volume': {
-        'outflow': '+'
-    }
+proportions = {
+    2: [(1,1)] # Outflow <-- P+ --> Volume
 }
+def generate_all_states(magnitudes, derivatives):
 
-state = State(quantities)
-print(state)
-state.quantities['inflow'].derivative = "+"
-state_graph = StateGraph2(state)
-state_graph.print_current_state()
-state_graph.transition()
-state_graph.print_current_state()
+    st_var = list(itertools.product(*magnitudes))
+    st_der = list(itertools.product(*derivatives))
+    states = list(itertools.product(st_var, st_der))
+    S = []
+    for i in range(len(states)):
+        S.append(states[i][0] + states[i][1])
+
+    return np.asarray(S)
+
+def filter_bonus(states):
+    for i in range(5):
+        # Filter -> MAX magnitude and + Derivative
+        states = states[~((states[:,i] == 2) & (states[:,i+5] == 1))]
+
+        # Filter -> 0 magnitude and - Derivative
+        states = states[~((states[:,i] == 0) & (states[:,i+5] == -1))]
+
+    for derivative in [-1, 0, 1]:
+        # Filter -> height derivative and pressure derivative must be equal
+        states = states[~((states[:,7] == derivative) & (states[:,8] != derivative))]
+        # Filter -> 1 volume derivative and outflow derivative not 1
+        states = states[~((states[:,6] == derivative) & (states[:,7] != derivative))]
+        # Filter -> volume derivative and height derivative must be equal
+        states = states[~((states[:,6] == derivative) & (states[:,9] != derivative))]
 
 
-# state_graph = StateGraph1(state, influences, proportionalities)
-# state_graph.print_current_state()
-# state_graph.transition()
-# state_graph.print_current_state()
-# state_graph.transition()
+    # Filter -> Inflow cannot be max
+    states = states[~((states[:,0] == 2))]
+
+    # Filter -> If volume is max, outflow is max
+    states = states[~((states[:,1] == 2) & (states[:,4] != 2))]
+    states = states[~((states[:,4] == 2) & (states[:,1] != 2))]
+
+    # Filter -> If volume is 0 outflow is 0
+    states = states[~((states[:, 1] == 0) & (states[:, 4] != 0))]
+    states = states[~((states[:, 4] == 0) & (states[:, 1] != 0))]
+
+    # Filter -> Outflow derivative is -1, inflow magnitude is 1 and derivative of volume is not 1
+    states = states[~((states[:, 4] == -1) & (states[:, 0] == 1) & (states[:,6] != 1))]
+    states = states[~((states[:, 4] == 1) & (states[:, 0] == 0) & (states[:,6] != -1))]
+
+    # Particular values, such as 0 and max correspond for volume, height, pressure and
+    # outflow.
+    for magnitude in [0,2]:
+        states = states[~((states[:, 1] == magnitude) & ((states[:, 2] != magnitude) | (states[:, 3] != magnitude) | (states[:, 4] != magnitude)))]
+        states = states[~((states[:, 2] == magnitude) & ((states[:, 1] != magnitude) | (states[:, 3] != magnitude) | (states[:, 4] != magnitude)))]
+        states = states[~((states[:, 3] == magnitude) & ((states[:, 2] != magnitude) | (states[:, 1] != magnitude) | (states[:, 4] != magnitude)))]
+        states = states[~((states[:, 4] == magnitude) & ((states[:, 2] != magnitude) | (states[:, 3] != magnitude) | (states[:, 1] != magnitude)))]
+
+
+    # ---- ASSUMPTIONS ------
+    # If volume is max, then tap cannot be postive (mag or deriv)
+    states = states[~((states[:, 1] == 2) & (states[:, 0] == 1))]
+    states = states[~((states[:, 1] == 2) & (states[:, 5] == 1))]
+
+    return states
+
+def filter(states):
+    for i in range(2):
+        # Filter -> MAX magnitude and + Derivative
+        states = states[~((states[:,i] == 2) & (states[:,i+3] == 1))]
+
+        # Filter -> 0 magnitude and - Derivative
+        states = states[~((states[:,i] == 0) & (states[:,i+3] == -1))]
+
+    # Filter -> 1 volume derivative and outflow derivative not 1
+    for derivative in [-1, 0, 1]:
+        states = states[~((states[:, 4] == derivative) & (states[:, 5] != derivative))]
+
+    # Filter -> Inflow cannot be max
+    states = states[~((states[:, 0] == 2))]
+
+    # Filter -> If volume is max, outflow is max
+    states = states[~((states[:, 1] == 2) & (states[:, 2] != 2))]
+    states = states[~((states[:, 2] == 2) & (states[:, 1] != 2))]
+
+    # Filter -> If volume is 0 outflow is 0
+    states = states[~((states[:, 1] == 0) & (states[:, 2] != 0))]
+    states = states[~((states[:, 2] == 0) & (states[:, 1] != 0))]
+
+    # Filter -> Outflow derivative is -1, inflow magnitude is 1 and derivative of volume is not 1
+    states = states[~((states[:, 2] == -1) & (states[:, 0] == 1) & (states[:, 4] != 1))]
+    states = states[~((states[:, 2] == 1) & (states[:, 0] == 0) & (states[:, 4] != -1))]
+    states = states[~((states[:, 2] == 0) & (states[:, 0] == 0) & (states[:, 4] != 0))]
+
+    # If inflow is positive and outflow is 0, both volume and outflow have positive derivative
+    states = states[~((states[:, 0] == 1) & (states[:, 2] == 0) & ((states[:, 4] != 1) & (states[:,5] != 1)))]
+
+    states = states[~((states[:, 1] == 2) & (states[:, 0] != 0) & (states[:, 3] != 0))]
+
+    return states
+
+def create_transitions(states):
+    transitions = {}
+    states_idxs = {}
+    for i in range(len(states)):
+        states_idxs[i] = states[i]
+        transitions[i] = np.delete(states,(i),axis=0)
+
+    return states_idxs, transitions
+
+def print_num_transitions(all_transitions):
+    total = 0
+    for transitions in all_transitions.values():
+        total += len(transitions)
+
+    print("# transitions:" + str(total))
+    return total
+
+def accumulate_effects(state, quantity):
+    accumulator = []
+    for influence in influences.get(quantity,[]):
+        influece_sign = influence[1]
+        old_state_mag = state[influence[0]]
+        if influece_sign > 0 and old_state_mag> 0 or \
+            influece_sign < 0 and old_state_mag < 0:
+            accumulator.append(1)
+        elif influece_sign < 0 and old_state_mag > 0 or \
+             influece_sign > 0 and old_state_mag < 0:
+            accumulator.append(-1)
+
+
+    for prop in proportions.get(quantity,[]):
+        prop_sign = prop[1]
+        old_state_deriv = state[prop[0]+3]
+        if prop_sign > 0 and old_state_deriv > 0 or \
+            prop_sign < 0 and old_state_deriv < 0:
+            accumulator.append(1)
+        elif prop_sign < 0 and old_state_deriv > 0 or \
+             prop_sign > 0 and old_state_deriv < 0:
+            accumulator.append(-1)
+
+    return accumulator
+
+def filter_transitions(states_idxs, all_transitions):
+
+    for state_id, transitions in all_transitions.items():
+        state = states_idxs[state_id]
+
+        # Check magnitudes
+        i = 0
+        while i < len(transitions):
+            new_state = transitions[i]
+            for j in range(3):
+                derivative = state[j+3]
+                old_mag = state[j]
+                new_mag = transitions[i][j]
+
+                if derivative > 0 and new_mag < old_mag or \
+                   derivative < 0 and new_mag > old_mag or \
+                   derivative > 0 and new_mag == 0 or \
+                   derivative < 0 and new_mag == 2 or \
+                   derivative == 0 and new_mag != old_mag or \
+                   abs(old_mag - new_mag) == 2:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
+                    break
+
+            i += 1
+
+        # Derivative filtering
+        i = 0
+        while i < len(transitions):
+            breaking = False
+            new_state = transitions[i]
+
+            for j in range(3):
+                old_derivative = state[j + 3]
+                new_derivative = transitions[i][j + 3]
+                accumlator = accumulate_effects(state, j)
+                if abs(new_derivative - old_derivative) == 2:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
+                    breaking = True
+                    break
+
+
+            # # # Misc checks
+            if not breaking:
+                # If volume is max there can be no inflow
+                if state[1] == 2 and transitions[i][3] == 1:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
+                    break
+
+                # If inflow has positive magnitude then outflow derivative must be positive
+                if (state[0] == 1 and state[2] == 0) and transitions[i][4] != 1:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
+
+                if (state[1] == 1 and state[1 + 3] == 1) and transitions[i][1] != 2:
+                    transitions = np.delete(transitions, (i), axis=0)
+                    i -= 1
+
+            i += 1
+
+
+
+        all_transitions[state_id] = transitions
+
+    return all_transitions
+
+def print_connections(states_idxs, transitions):
+    for state, transfs in transitions.items():
+        print("{} ---> {}".format(states_idxs[state],transfs))
+
+def array2print(state,id = -1, bonus=False):
+    result = str(id) + "\n"
+    offset = None
+    for i in range(int(len(state)/2)):
+        if bonus:
+            offset = 5
+            Q = quantities_bonus[i]
+        else:
+            offset = 3
+            Q = quantities[i]
+
+        result += Q + "{" + num2sign_mag[int(state[i])] + ", " + num2sign_deriv[int(state[i+offset])] + "}\n"
+
+    return result
+
+def find_state_id(state_idxs, state):
+    for key, state_repr in state_idxs.items():
+        if np.array_equal(state,state_repr ):
+            return key
+
+    return None
+
+def create_representation_graph(states, edges, file_path, states_idxs, bonus=False):
+
+    graph = Digraph(comment='The Qualitative Model')
+    graph.node_attr.update(color='lightblue2', style='filled')
+
+    for s, transfs in edges.items():
+        str_rep1 = array2print(states_idxs[s],id = s,bonus=bonus)
+        graph.node(str_rep1)
+        for transf in transfs:
+            s_id = find_state_id(states_idxs,transf)
+            str_rep2 = array2print(transf,id = s_id,bonus=bonus)
+            graph.edge(str_rep1,str_rep2)
+
+    graph.render(file_path, view=True)
+
+
+
+def compare_states(state1, state2):
+    comparison = ""
+    for i in [0, 1, 2]:
+        quantity = quantities[i]
+        influence = influences.get(i,[])
+        props = proportions.get(i,[])
+
+        comparison += quantity + ":"
+        mag1 = state1[i]
+        mag2 = state2[i]
+        der1 = state1[i+3]
+        der2 = state2[i+3]
+        comparison += " magnitude"
+        if mag2 > mag1:
+            comparison += " increased"
+        elif mag1 > mag2:
+            comparison += " decreased"
+        else:
+            comparison += " remained the same"
+
+        comparison += " and the derivative"
+
+        deriv_change = 0
+        if der2 > der1:
+            comparison += " increased"
+            deriv_change = 1
+        elif der1 > der2:
+            comparison += " decreased"
+            deriv_change = -1
+        else:
+            comparison += " remained the same"
+
+        if der1 != der2:
+            if i == 0:
+                comparison += " due to exogenous reasons"
+            if i == 1:
+                comparison += " due to"
+                if state1[0] > 0:
+                    comparison += " inflow positive influence"
+                if state1[2] < 0:
+                    comparison += " outflow negative influenc"
+            if i == 2:
+                comparison += " due to volume positive proportionality"
+
+        comparison += "\n"
+
+    return comparison
+
+def read_state(state):
+    str = ""
+    for i in range(3):
+        quantitiy = quantities[i]
+        str += quantitiy + ": "
+        mag = state[i]
+        deriv = state[i+3]
+        str += "has {} magnitude ".format(num2sign_mag[mag])
+        str += "and {} derivative ".format(num2sign_deriv[deriv])
+        str += "\n"
+
+    return str
+
+def build_trace_dict(transitions):
+    trace_dict = defaultdict(list)
+    node_ids = defaultdict(list)
+    for node_id, tranfs in transitions.items():
+        for transf in tranfs:
+            trace_dict[node_id].append(compare_states(states_idxs[node_id],transf))
+            node_ids[node_id].append(find_state_id(states_idxs, transf))
+
+    return trace_dict, node_ids
+
+def find_shortest_path(graph, start, end, path=[]):
+    path = path + [start]
+    if start == end:
+        return path
+    if not start in graph.keys():
+        return None
+    shortest = None
+    for node in graph[start]:
+        if node not in path:
+            newpath = find_shortest_path(graph, node, end, path)
+            if newpath:
+                if not shortest or len(newpath) < len(shortest):
+                    shortest = newpath
+    return shortest
+
+def trace(path):
+    print("Path {}".format(path))
+
+    print("Node {}".format(path[0]))
+    print(read_state(states_idxs[path[0]]))
+    for i in range(1, len(path)):
+        print("-- Transition {} -> {} --".format(path[i-1],path[i]))
+        print(compare_states(states_idxs[path[i-1]],states_idxs[path[i]]))
+        print("Node: {}".format(path[i]))
+        print(read_state(states_idxs[path[i]]))
+
+# Generate and filter impossible states
+states = generate_all_states(magnitudes, derivatives)
+states = filter(states)
+
+# Generate and filter transitions
+states_idxs, transitions = create_transitions(states)
+transitions = filter_transitions(states_idxs, transitions)
+
+
+# Build graph
+create_representation_graph(states,transitions,'state_graaph',states_idxs,bonus=False)
+
+# Trace
+# Generate ID only graph structure
+traces, transfer_ids = build_trace_dict(transitions)
+example_path = find_shortest_path(transfer_ids,0,20)
+
+
+trace(example_path)

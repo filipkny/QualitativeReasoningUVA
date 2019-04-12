@@ -2,9 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f81e3d-a752-4679-bde2-df0c1c0da878" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bathtub.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_accumulator" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/full_accumulator.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc_new" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc_new.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc_new_best" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc_new_best.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc_new_best_trying" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_Acc_no_misc_new_best_trying.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_accumulator" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/half_accumulator.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello.gv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello.gv.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/no_accumulator" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/no_accumulator.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing" beforeDir="false" afterPath="$PROJECT_DIR$/testing" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/testing.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing.pdf" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,43 +52,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6187">
-              <caret line="270" column="14" selection-start-line="270" selection-start-column="14" selection-end-line="270" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="419" column="56" selection-start-line="419" selection-start-column="49" selection-end-line="419" selection-end-column="56" />
+            <state relative-caret-position="415">
+              <caret line="54" column="1" lean-forward="true" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
-                <element signature="e#1255#3711#0" />
+                <element signature="e#1292#3748#0" />
+                <element signature="e#3774#5644#0" />
+                <element signature="e#5682#5878#0" />
+                <element signature="e#5928#6079#0" />
+                <element signature="e#6126#6987#0" />
+                <element signature="e#7048#9313#0" />
+                <element signature="e#9368#9473#0" />
+                <element signature="e#9524#9878#0" />
+                <element signature="e#9921#10049#0" />
+                <element signature="e#10141#10616#0" />
+                <element signature="e#10691#12416#0" />
+                <element signature="e#12445#12755#0" />
+                <element signature="e#12796#13127#0" />
+                <element signature="e#13361#13769#0" />
+                <element signature="e#13792#14171#0" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/half_accumulator">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -119,7 +128,20 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="QR_assignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="QR_assignment" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -199,7 +221,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -272,12 +294,18 @@
       <workItem from="1554749533349" duration="20000" />
       <workItem from="1554832495851" duration="7252000" />
       <workItem from="1554843346831" duration="25000" />
-      <workItem from="1554907605424" duration="12826000" />
+      <workItem from="1554907605424" duration="13101000" />
+      <workItem from="1554973143449" duration="48000" />
+      <workItem from="1554976556538" duration="450000" />
+      <workItem from="1554982827836" duration="35000" />
+      <workItem from="1554995980972" duration="806000" />
+      <workItem from="1555053072797" duration="673000" />
+      <workItem from="1555078282271" duration="302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110557000" />
+    <option name="totallyTimeSpent" value="113146000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -289,15 +317,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-2" width="1920" height="1082" extended-state="6" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49563953" weight="0.2114001" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49563953" visible="true" weight="0.2114001" />
       <window_info id="Structure" order="1" sideWeight="0.504886" side_tool="true" weight="0.3121453" />
       <window_info id="Favorites" order="2" sideWeight="0.50436044" side_tool="true" weight="0.10215664" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.08093717" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32894737" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49893278" visible="true" weight="0.032894738" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.34320176" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -306,20 +334,20 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160086" side_tool="true" weight="0.3599574" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.371672" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.37089714" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49839914" weight="0.3684771" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.7979569" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.16061899" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.1599336" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/QR_assignment$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1554971897526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/QR_assignment$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1555078585719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/QR_assignment$py3.coverage" NAME="py3 Coverage Results" MODIFIED="1554028545834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/QR_assignment$Bathtub.coverage" NAME="Bathtub Coverage Results" MODIFIED="1554149472073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/QR_assignment$test.coverage" NAME="test Coverage Results" MODIFIED="1554324067710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -396,28 +424,8 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Bathtub.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="22" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hello.gv">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6187">
-          <caret line="270" column="14" selection-start-line="270" selection-start-column="14" selection-end-line="270" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/half_accumulator">
       <provider selected="true" editor-type-id="text-editor">
@@ -429,13 +437,47 @@
     <entry file="file://$PROJECT_DIR$/test">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bathtub.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="25" column="64" lean-forward="true" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="419" column="56" selection-start-line="419" selection-start-column="49" selection-end-line="419" selection-end-column="56" />
+        <state relative-caret-position="415">
+          <caret line="54" column="1" lean-forward="true" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
-            <element signature="e#1255#3711#0" />
+            <element signature="e#1292#3748#0" />
+            <element signature="e#3774#5644#0" />
+            <element signature="e#5682#5878#0" />
+            <element signature="e#5928#6079#0" />
+            <element signature="e#6126#6987#0" />
+            <element signature="e#7048#9313#0" />
+            <element signature="e#9368#9473#0" />
+            <element signature="e#9524#9878#0" />
+            <element signature="e#9921#10049#0" />
+            <element signature="e#10141#10616#0" />
+            <element signature="e#10691#12416#0" />
+            <element signature="e#12445#12755#0" />
+            <element signature="e#12796#13127#0" />
+            <element signature="e#13361#13769#0" />
+            <element signature="e#13792#14171#0" />
           </folding>
         </state>
       </provider>
